@@ -5,7 +5,7 @@
 : refill  ( -- ior )                    \ keyboard only
     depth ?dup if
       0 .r  [char] | emit
-	then ." ok>"
+	then ." ok> "
     tib |tib| accept tibs !  0 >in !
 	cr									\ mimic stdin trailing LF echo
     0

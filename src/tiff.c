@@ -1219,12 +1219,12 @@ ok> at the newline means you didn't die. That's always `ok`.
 #if (OKstyle)
                     depth = Sdepth();
                     if (depth) {
-                        printf("%d|ok>", depth);
+                        printf("%d|ok> ", depth);
                     } else {
-                        printf("ok>");
+                        printf("ok> ");
                     }
 #else
-                    printf("ok>");
+                    printf("ok> ");
 #endif
                     ColorNone();
                     break;
