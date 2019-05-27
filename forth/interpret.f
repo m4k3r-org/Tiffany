@@ -56,9 +56,6 @@
    r@ c@+ cmove  r>                     \ use pad as temporary
 ;
 
-: .(    \ "string)" --                  \ 6.2.0200
-    [char] ) parse type                 \ parse to output
-;
 : char  \ "char" -- n                   \ 6.1.0895
    parse-name drop c@
 ;

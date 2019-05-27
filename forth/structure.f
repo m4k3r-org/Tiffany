@@ -7,6 +7,9 @@
 : chars   ; immediate                   \ 6.1.0898
 : (       [char] ) parse 2drop
 ; immediate
+: .(    \ "string)" --                  \ 6.2.0200
+    [char] ) parse type                 \ parse to output
+; immediate
 
 : [']   \ "name" --                     \ 6.1.2510
    ' literal,
