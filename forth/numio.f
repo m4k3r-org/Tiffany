@@ -108,7 +108,7 @@ equ term_personality               		\ terminal personality
       dup 13 = if  drop		            \ terminator
          r> drop swap - exit
       then								( a a' )
-      dup 8 = if  drop                  \ backspace
+      dup 8 =  over 127 =  or if  drop  \ backspace or delete
          2dup xor if  1-                \ back up if not empty
             .\" \e[D \e[D"              \ VT52 left one place
          then                           \ {left,space,left} deletes char on screen
