@@ -1,8 +1,8 @@
 \ Tools
 
 : ;.  \ n --                            \ output number in decimal
-   base dup >r @  [char] ; emit
-   swap  decimal  0 .r  r> !            \ ";nn"
+   base @  [char] ; emit
+   swap  decimal  0 .r  base !          \ ";nn"
 ;
 : colorize  \ --
     c_theme c@ ifz: r> drop exit |      \ abort if monochrome
@@ -26,8 +26,8 @@
 : ColorImmA  colorize  33 color_xd ;    \ immediate address = dim yellow
 : ColorOpcod ColorNone ;
 
-\ bit 3 = immediate						\ FG  BG
-\ bit 2 = not call-only					\ 30, 40 = Black
+\ bit 3 = immediate			\ FG  BG
+\ bit 2 = not call-only			\ 30, 40 = Black
 \ bit 1 = public                        \ 31, 41 = Red
 \ bit 0 = smudged                       \ 32, 42 = Green
                                         \ 33, 43 = Yellow
@@ -35,23 +35,24 @@
                                         \ 35, 45 = Magenta
                                         \ 36, 46 = Cyan
                                         \ 37, 47 = White
+					\     49 = default background color
 rom cp @
-    36 c, 45 c, \ call-only + anonymous
-    36 c, 40 c, \ call-only
-    32 c, 45 c, \ anonymous
-    32 c, 40 c, \ typical - green
+    36 c, 49 c, \ call-only + anonymous
+    36 c, 49 c, \ call-only
+    32 c, 49 c, \ anonymous
+    32 c, 49 c, \ typical - green
     \ IMMEDIATE versions
-    33 c, 42 c, \ call-only + anonymous
-    33 c, 46 c, \ call-only
-    33 c, 44 c, \ anonymous
-    33 c, 40 c, \ typical - yellow
+    33 c, 49 c, \ call-only + anonymous
+    33 c, 49 c, \ call-only
+    33 c, 49 c, \ anonymous
+    33 c, 49 c, \ typical - yellow
 equ wordcolors
 ram
 
 : ColorWord  \ n --                     \ color type 0 to 15
     c_theme c@ ifz: drop exit |
     dup 1 and if
-		drop 40 31						\ smudged
+		drop 49 31						\ smudged
     else
 		wordcolors + c@+ swap c@ swap   ( bg fg )
     then
